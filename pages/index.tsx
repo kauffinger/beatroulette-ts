@@ -76,7 +76,7 @@ const Home: NextPage = () => {
           </p>
         </div>
       </Section>
-      <Spacer size="large"></Spacer>
+      <Spacer size="small"/>
     </Page>
   );
 };

@@ -1,4 +1,6 @@
-//import Navbar from "./navbar";
+import Footer from "./Footer";
+import NavBar from "./NavBar";
+import Section from "./Section";
 
 interface Props {
   children: React.ReactNode;
@@ -7,8 +9,11 @@ interface Props {
 function Page(props: Props) {
   return (
     <div className="h-screen w-screen flex flex-col justify-start items-center">
-      {/*<Navbar></Navbar>*/}
+      <NavBar></NavBar>
       {props.children}
+      <Section>
+        <Footer></Footer>
+      </Section>
     </div>
   );
 }
