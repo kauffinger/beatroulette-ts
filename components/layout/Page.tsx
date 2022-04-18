@@ -6,7 +6,7 @@ interface Props {
 
 function Page(props: Props) {
   return (
-    <div className="bg-gray-900 h-screen w-screen flex flex-col justify-start items-center">
+    <div className="h-screen w-screen flex flex-col justify-start items-center">
       {/*<Navbar></Navbar>*/}
       {props.children}
     </div>
