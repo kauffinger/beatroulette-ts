@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp, getApps } from "firebase/app";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
-import { getAnalytics } from "firebase/analytics";
+import { Analytics, getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
@@ -27,7 +27,7 @@ const firebaseConfig = {
 // Initialize Firebase
 let app;
 if (getApps().length === 0) app = initializeApp(firebaseConfig);
-let analytics;
+let analytics: Analytics;
 if (app && typeof window !== "undefined") {
   analytics = getAnalytics(app);
 }
@@ -36,7 +36,6 @@ const auth = getAuth(app);
 const googleAuthProvider = new GoogleAuthProvider();
 const firestore = getFirestore(app);
 const storage = getStorage(app);
-const sInWithPopup = signInWithPopup;
 const functions = getFunctions(app);
 
 //connect to emulators
@@ -48,7 +47,7 @@ export {
   auth,
   googleAuthProvider,
   firestore,
-  sInWithPopup,
+  signInWithPopup,
   storage,
   functions,
 };
