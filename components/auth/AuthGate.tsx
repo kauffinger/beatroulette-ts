@@ -7,7 +7,7 @@ function AuthGate({
   fallback,
   children,
 }: {
-  fallback: ReactNode;
+  fallback?: ReactNode;
   children: ReactNode;
 }) {
   const { user } = useContext(UserContext);

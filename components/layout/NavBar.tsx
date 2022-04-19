@@ -1,4 +1,5 @@
 import { Button } from "@mantine/core";
+import Link from "next/link";
 import { useContext } from "react";
 
 import { UserContext } from "../../lib/context";
@@ -16,13 +17,15 @@ function NavBar() {
       <div className="flex">
         {user ? (
           <>
-            <Button
-              variant="subtle"
-              color="lime"
-              className="hover:bg-rgray-800"
-            >
-              Play
-            </Button>
+            <Link href={"/game"} passHref>
+              <Button
+                variant="subtle"
+                color="lime"
+                className="hover:bg-rgray-800"
+              >
+                Play
+              </Button>
+            </Link>
             <LogoutButton />
           </>
         ) : (
