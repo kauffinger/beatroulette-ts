@@ -1,14 +1,18 @@
 import { ErrorMessage, Form, Formik } from "formik";
 import Link from "next/link";
-import AppButton from "../../ui/AppButton";
-import * as Yup from "yup";
-import { joinGameWithPassword } from "../../../lib/functions";
 import { showNotification } from "@mantine/notifications";
+import * as Yup from "yup";
+import { Router } from "next/router";
+
+import { joinGameWithPassword } from "../../../lib/functions";
+import AppButton from "../../ui/AppButton";
 
 interface Props {
   gameId: string;
-  router: any;
+  router: Router;
 }
+
+// Todo: Correctly type gameId, maybe convert Formik to MantineForm
 
 function JoinGameForm({ gameId, router }: Props) {
   return (
