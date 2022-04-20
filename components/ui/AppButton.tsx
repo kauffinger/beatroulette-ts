@@ -18,6 +18,8 @@ interface Props {
   children?: React.ReactNode;
   loading?: boolean;
   variant?: ButtonVariant;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 function AppButton({
@@ -27,6 +29,8 @@ function AppButton({
   children,
   loading = false,
   variant = "subtle",
+  type = "button",
+  disabled = false,
 }: Props) {
   return (
     <Button
@@ -34,6 +38,8 @@ function AppButton({
       className={clsx("", className)}
       variant={variant}
       loading={loading}
+      type={type}
+      disabled={disabled}
     >
       <span className="inline-flex space-x-2">{children}</span>
     </Button>
