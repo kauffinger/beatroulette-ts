@@ -1,15 +1,9 @@
-import {
-  Group,
-  TextInput,
-  Box,
-  Text,
-  Code,
-  Button,
-  Center,
-} from "@mantine/core";
+import { Group, TextInput, Box, Text, Center } from "@mantine/core";
 import { useForm, formList } from "@mantine/form";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { GripVertical } from "tabler-icons-react";
+
+import AppButton from "../../ui/AppButton";
 
 function CreateGameForm() {
   const form = useForm({
@@ -30,6 +24,7 @@ function CreateGameForm() {
             <GripVertical size={18} />
           </Center>
           <TextInput
+            className="bg-rgray-800 focus:ring-red-500 focus:border-red-500 block shadow-sm text-sm border-gray-600 rounded-md text-white"
             placeholder="Round Theme"
             {...form.getListInputProps("rounds", index, "name")}
           />
@@ -71,15 +66,14 @@ function CreateGameForm() {
       </DragDropContext>
 
       <Group position="center" mt="md">
-        <Button onClick={() => form.addListItem("rounds", { name: "" })}>
+        <AppButton
+          className="border-accent border-2 text-white"
+          variant="outline"
+          onClick={() => form.addListItem("rounds", { name: "" })}
+        >
           Add round
-        </Button>
+        </AppButton>
       </Group>
-
-      <Text size="sm" weight={500} mt="md">
-        Form values:
-      </Text>
-      <Code block>{JSON.stringify(form.values, null, 2)}</Code>
     </Box>
   );
 }
