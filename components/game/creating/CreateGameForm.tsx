@@ -1,8 +1,12 @@
 import { Group, Box, Text } from "@mantine/core";
 import { useForm, formList, yupResolver } from "@mantine/form";
+import { showNotification, updateNotification } from "@mantine/notifications";
+import { useRouter } from "next/router";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import * as Yup from "yup";
+import { CircleCheck, X } from "tabler-icons-react";
 
+import { createGame } from "../../../lib/functions";
 import AppButton from "../../ui/AppButton";
 import RoundFormInput from "./RoundFormInput";
 
@@ -33,9 +37,54 @@ function CreateGameForm() {
     },
   });
 
-  const submitHandler = () => {
+  const router = useRouter();
+
+  const submitHandler = async () => {
     let validated = form.validate();
+    if (validated.hasErrors) {
+      return;
+    }
+
+    showNotification({
+      id: "submit-game-creation",
+      disallowClose: true,
+      autoClose: false,
+      title: "Game is being created...",
+      message: "Give this time, Google likes to take it's slow.",
+      color: "blue",
+      loading: true,
+    });
+
     let values = form.values;
+
+    const res = await createGame({
+      maxrounds: values.rounds.length,
+      roundinfo: values.rounds,
+    });
+
+    if (res.data.created) {
+      updateNotification({
+        id: "submit-game-creation",
+        disallowClose: false,
+        autoClose: 3000,
+        title: "Game Created!",
+        message: "Get ready and invite your players.",
+        color: "teal",
+        loading: false,
+        icon: <CircleCheck />,
+      });
+      router.push(`/game/play/${res.data.gameId}`);
+    } else
+      updateNotification({
+        id: "submit-game-creation",
+        disallowClose: false,
+        autoClose: 3000,
+        title: "Error while creating the game.",
+        message: res.data.info,
+        color: "red",
+        loading: false,
+        icon: <X />,
+      });
   };
 
   const fields = form.values.rounds.map((_, index) => (
