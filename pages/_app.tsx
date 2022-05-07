@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const userData = useUserData();
 
   return (
-    <MantineProvider>
+    <MantineProvider theme={{ colorScheme: "dark" }}>
       <NotificationsProvider>
         <UserContext.Provider value={userData}>
           <Component {...pageProps} />
