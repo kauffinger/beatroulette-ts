@@ -37,7 +37,7 @@ function RoundFormInput({
                 className="absolute inset-y-0 right-1 h-full inline-flex"
                 onClick={removeFunction}
               >
-                <Trash className="my-auto hover:cursor-pointer" />
+                <Trash className="my-auto hover:cursor-pointer text-rgray-100 hover:text-white hover:scale-105 transition" />
               </div>
             )}
           </div>
