@@ -4,6 +4,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { GripVertical } from "tabler-icons-react";
 
 import AppButton from "../../ui/AppButton";
+import RoundFormInput from "./RoundFormInput";
 
 function CreateGameForm() {
   const form = useForm({
@@ -17,20 +18,12 @@ function CreateGameForm() {
   });
 
   const fields = form.values.rounds.map((_, index) => (
-    <Draggable key={index} index={index} draggableId={index.toString()}>
-      {(provided) => (
-        <Group ref={provided.innerRef} mt="xs" {...provided.draggableProps}>
-          <Center {...provided.dragHandleProps}>
-            <GripVertical size={18} />
-          </Center>
-          <TextInput
-            className="bg-rgray-800 focus:ring-red-500 focus:border-red-500 block shadow-sm text-sm border-gray-600 rounded-md text-white"
-            placeholder="Round Theme"
-            {...form.getListInputProps("rounds", index, "name")}
-          />
-        </Group>
-      )}
-    </Draggable>
+    <RoundFormInput
+      key={index}
+      index={index}
+      listInputProps={form.getListInputProps("rounds", index, "name")}
+      removeFunction={() => form.removeListItem("rounds", index)}
+    />
   ));
 
   return (
@@ -79,3 +72,4 @@ function CreateGameForm() {
 }
 
 export default CreateGameForm;
+
