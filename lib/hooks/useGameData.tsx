@@ -6,6 +6,7 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useDocumentData } from "react-firebase-hooks/firestore";
+import { GameState } from "../types";
 
 import useUserData from "./useUserData";
 
@@ -17,7 +18,7 @@ const useGameData = (gameId: string) => {
 
   const [admin, setAdmin] = useState("");
   const [isHost, setIsHost] = useState(false);
-  const [gamestate, setGamestate] = useState("");
+  const [gamestate, setGamestate] = useState<GameState>("pre");
   const [players, setPlayers] = useState<Players>([""]);
   const [round, setRound] = useState(0);
   const [maxrounds, setMaxrounds] = useState(0);
@@ -39,9 +40,7 @@ const useGameData = (gameId: string) => {
   let siloDataQuery = (): null | DocumentReference<DocumentData> => null;
   if (!loading && user && gameId && currentSilo)
     siloDataQuery = () => currentSilo;
-  const [siloData] = useDocumentData(
-    siloDataQuery()
-  );
+  const [siloData] = useDocumentData(siloDataQuery());
 
   useEffect(() => {
     if (gameData?.players?.includes(user?.uid)) {

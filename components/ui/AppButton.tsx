@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Button,
+  Text,
   ButtonVariant,
   ColorInputStylesParams,
   ColorScheme,
@@ -8,7 +9,7 @@ import {
   MantineColor,
 } from "@mantine/core";
 import clsx from "clsx";
-
+import { useModals } from "@mantine/modals";
 import type { Icon } from "../../lib/types";
 
 interface Props {
@@ -20,6 +21,7 @@ interface Props {
   variant?: ButtonVariant;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
+  isDangerous?: boolean;
 }
 
 function AppButton({
@@ -31,7 +33,35 @@ function AppButton({
   variant = "subtle",
   type = "button",
   disabled = false,
+  isDangerous = false,
 }: Props) {
+  const modals = useModals();
+  const wrappedOnClick = () => {
+    if (!isDangerous) {
+      return onClick;
+    }
+    return () =>
+      modals.openConfirmModal({
+        title: "Please confirm your action",
+        children: (
+          <Text size="sm">
+            This action is so important that you are required to confirm it with
+            a modal. Please click one of these buttons to proceed.
+          </Text>
+        ),
+        labels: { confirm: "Confirm", cancel: "Cancel" },
+        onCancel: () => {},
+        onConfirm: () => {
+          if (!onClick) {
+            console.error(
+              "onClick is not defined. When isDangerous is true, onClick must be defined."
+            );
+          } else {
+            onClick();
+          }
+        },
+      });
+  };
   return (
     <Button
       onClick={onClick}
