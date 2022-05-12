@@ -50,7 +50,7 @@ function CreateGameForm() {
       disallowClose: true,
       autoClose: false,
       title: "Game is being created...",
-      message: "Give this time, Google likes to take it's slow.",
+      message: "Give this time, Google likes to take it slow.",
       color: "blue",
       loading: true,
     });
